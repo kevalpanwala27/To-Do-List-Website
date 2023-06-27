@@ -4,9 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>To-Do-List-Website</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <h1>It's a <%= kindOfDay %>!</h1>
+    <h1> <%= kindOfDay %> </h1>
+    <ul>
+    <% for (let i=0; i<newListItems.length; i++) { %>
+        <li> <%= newListItems[i] %> </li>
+    <% } %>
+    </ul>
+
+    <form class="" action="/" method="post">
+        <input type="text" name="newItem">
+        <button type="submit" name=""button>Add</button>
+    </form>
+
 </body>
 </html>
+
 
