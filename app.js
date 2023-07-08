@@ -7,7 +7,7 @@ let workItems = [];
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
-app.use(express.static("public"));
+app.use(express.static("public")); // We are applying css styles.
 
 app.get("/", function (req, res) {
     
