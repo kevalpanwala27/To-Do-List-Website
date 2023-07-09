@@ -55,15 +55,21 @@ app.get("/", function (req, res) {
 
 app.post("/", function (req, res) {
 
-    let item = req.body.newItem;
-
-    if (req.body.list === "Work") {
-        workItems.push(item);
-        res.redirect("/work");    
-    } else {
-        items.push(item);
-        res.redirect("/");
-    }
+    const itemName = req.body.newItem;
+    const itemDate = req.body.newDate;
+    const newItem = new Item({
+        name: itemName,
+        date: itemDate
+        });
+        newItem.save(function (err) {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log("Successfully saved item to DB.");
+            }
+        }
+    );
+    res.redirect("/");
 });
 
 
