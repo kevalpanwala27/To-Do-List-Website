@@ -64,7 +64,7 @@ button {
   background-color: #A683E3;
   color: #fff;
   font-size: 30px;
-  padding-bottom: px;
+  padding-bottom: 6px;
   border-width: 0;
 }
 
@@ -94,3 +94,6 @@ footer {
   color: rgba(0, 0, 0, 0.5);
   text-align: center;
 }
+
+
+
