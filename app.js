@@ -1,27 +1,41 @@
 const express = require("express");
 const bodyParser = require("body-parser");
-
+const mongoose = require("mongoose");
 const app = express();
-let items = ["Buy Food", "Cook Food", "Eat Food"];
-let workItems = [];
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'ejs');
 app.use(express.static("public")); // We are applying css styles.
 
+mongoose.connect("mongodb://localhost:27017/todolistDB", {useNewUrlParser: true, useUnifiedTopology: true});
+
+const itemsSchema = {
+    name: String
+};
+
+const Item = mongoose.model("Item", itemsSchema);
+
+const item1 = new Item ({
+    name: "Welcome to your todolist!"
+});
+const item2 = new Item ({
+    name: "Hit the + button to add a new item."
+});
+const item3 = new Item ({
+    name: "<-- Hit this to delete an item."
+});
+
+const items = [item1, item2, item3];
+Item.insertMany(items, function (err) {
+    if (err) {
+        console.log(err);
+    } else {
+        console.log("Successfully saved items to DB.");
+    }
+});
+
 app.get("/", function (req, res) {
-    
-    let today = new Date()
-    let options = {
-        weekday: "long",
-        day: "numeric",
-        month: "long"   
-    };
-
-    let day = today.toLocaleDateString("en-US", options);
-
-
-    res.render("list", {listTitle: day, newListItems: items})
+    res.render("list", {listTitle: "Today", newListItems: items})
 });
 
 app.post("/", function (req, res) {
