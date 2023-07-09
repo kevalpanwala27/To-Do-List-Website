@@ -35,7 +35,22 @@ Item.insertMany(items, function (err) {
 });
 
 app.get("/", function (req, res) {
-    res.render("list", {listTitle: "Today", newListItems: items})
+    // Rendering from mongoose.
+    Item.find({}, function (err, foundItems) {
+
+        if (foundItems.length === 0) {
+            Item.insertMany(items, function (err) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    console.log("Successfully saved items to DB.");
+                }
+            });
+            res.redirect("/");
+        }
+
+        res.render("list", {listTitle: "Today", newListItems: foundItems});
+    });
 });
 
 app.post("/", function (req, res) {
